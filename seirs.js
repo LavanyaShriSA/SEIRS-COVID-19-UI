@@ -30,7 +30,7 @@ var graph_bottom_3 = null;
 var div_with_one_graph = `
     <div id="chart-carousel-1" class="carousel slide" data-interval="false">
         <!-- Wrapper for slides -->
-        <div class="carousel-inner graph-outer">
+        <div id="graph-outer-top" class="carousel-inner graph-outer">
             <div class="carousel-item graph-item active">
                 <canvas id="graph-top-1" class="graph-item chart"></canvas>
             </div>
@@ -48,7 +48,7 @@ var div_with_one_graph = `
 var div_with_five_graphs = `
     <div id="chart-carousel-1" class="carousel slide" data-interval="false">
         <!-- Wrapper for slides -->
-        <div class="carousel-inner graph-outer">
+        <div id="graph-outer-top" class="carousel-inner graph-outer">
             <div class="carousel-item graph-item active">
                 <canvas id="graph-top-1" class="graph-item chart"></canvas>
             </div>
@@ -616,6 +616,10 @@ function generateGraph() {
         document.getElementById("graph-top").style.display = "block";
         document.getElementById("graph-bottom").style.display = "none";
 
+        document.getElementById("graph-outer-top").style.width = "500px";
+        document.getElementById("graph-outer-top").style.height = "350px";
+
+
         comment = "The graph shows the variation of class values with time.";
 
 
@@ -681,11 +685,11 @@ function generateGraph() {
         document.getElementById("graph-top").style.display = "block";
         document.getElementById("graph-bottom").style.display = "none";
 
-        document.getElementById("graph-outer-bottom").style.height = "350px";
+        document.getElementById("graph-outer-top").style.width = "500px";
         document.getElementById("graph-outer-top").style.height = "350px";
 
-
         comment = "The graph shows the variation of each class with susceptiple population. The values converge to a single equilibrium point from different inital values. Hence it is a attractor plot.";
+
     }
 
     else {
@@ -708,28 +712,20 @@ function generateGraph() {
         var option2 = document.getElementById("option2").value;
         var option3 = document.getElementById("option3").value;
 
-        console.log(option1, option2, option3);
-        console.log(varying_parameter)
         data[varying_parameter] = parseFloat(option1);
         [time, s1, ev1, env1, is1, ias1, r1] = calculateSEIR(data,initS, initEv, initEnv, initIs, initIas, initR, max_time=max_time);
-        console.log(data);
+
         data[varying_parameter] = parseFloat(option2);
         [time, s2, ev2, env2, is2, ias2, r2] = calculateSEIR(data,initS, initEv, initEnv, initIs, initIas, initR, max_time=max_time);
-        console.log(data);
 
         data[varying_parameter] = parseFloat(option3);
         [time, s3, ev3, env3, is3, ias3, r3] = calculateSEIR(data,initS, initEv, initEnv, initIs, initIas, initR, max_time=max_time);
-        console.log(data);
 
         legend_labels = [
             symbol_dict[varying_parameter] + "=" + String(option1),
             symbol_dict[varying_parameter] + "=" + String(option2),
             symbol_dict[varying_parameter] + "=" + String(option3)
         ];
-
-        console.log(s1);
-        console.log(s2);
-        console.log(s3);
 
         graph_element = document.getElementById("graph-top-1");
         graph_top_1 = drawVariation(graph_element, graph_top_1, time, s1, s2, s3, "susceptible", legend_labels);
@@ -761,12 +757,13 @@ function generateGraph() {
         document.getElementById("graph-top").style.display = "block";
         document.getElementById("graph-bottom").style.display = "block";
 
-        document.getElementById("graph-outer-top").style.height = "250px";
-        document.getElementById("graph-outer-bottom").style.height = "250px";
+        document.getElementById("graph-outer-top").style.width = "500px";
+        document.getElementById("graph-outer-top").style.height = "350px";
 
         comment = "The graph on the top shows the variation of each class values for different parameter values. The second graph shows the variation of class values for each parameter value.";
     }
 
+    // console.log(comment);
     document.getElementById("comment").innerHTML = comment;
     document.getElementById("comment-section").style.display = "block";
 }
