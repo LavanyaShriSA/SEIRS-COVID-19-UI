@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Covid-19</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script src="seirs.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- Bootstrap files -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Chart .js file -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.0/chartjs-plugin-annotation.min.js"></script>
+
+</head>
+
+
+<body>
+    <div class="outer">
+        <table class="inner">
+            <tr>
+                <td colspan="3" class="align-center h3 py-1">Mathematical Modelling of Covid-19 using modified SEIRS Model</td>
+            </tr>
+            <tr>
+                <td  class="section left-section" rowspan="2">
+                    <div class="title">
+                        Default parameters
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td class="py-0">Transmission rate (β)</td>
+                            <td class="py-0"><input type="number" id="transmission_rate" value=0.5 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Birth rate (μ)</td>
+                            <td class="py-0"><input type="number" id="birth_rate" value=0.001 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Death rate (λ)</td>
+                            <td class="py-0"><input type="number" id="death_rate" value=0.0005 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Proportion of vaccinated population (V)</td>
+                            <td class="py-0"><input type="number" id="vaccinated" value=0.6 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Proportion of non vaccinated population (NV)</td>
+                            <td class="py-0"><input type="number" id="not_vaccinated" value=0.4 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Rate of movement from Exposed with vaccinated to Infected with symptomatic (σsv)</td>
+                            <td class="py-0"><input type="number" id="sigma_sv" value=0.014 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Rate of movement from Exposed with vaccinated to Infected with asymptomatic (σav)</td>
+                            <td class="py-0"><input type="number" id="sigma_av" value=0.128 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Rate of movement from Exposed with non vaccinated to Infected with symptomatic (σsnv)</td>
+                            <td class="py-0"><input type="number" id="sigma_snv" value=0.128 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Rate of movement from Exposed with non vaccinated to Infected with asymptomatic (σanv)</td>
+                            <td class="py-0"><input type="number" id="sigma_anv" value=0.014 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Death rate from Infected with symptomatic compartment (αs)</td>
+                            <td class="py-0"><input type="number" id="alpha_s" value=0.01 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Death rate from Infected with asymptomatic compartment (αas)</td>
+                            <td class="py-0"><input type="number" id="alpha_as" value=0.0 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Recovery rate from Infected with symptomatic compartment (γs)</td>
+                            <td class="py-0"><input type="number" id="gamma_s" value=0.071 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Recovery rate from Infected with asymptomatic compartment (γas)</td>
+                            <td class="py-0"><input type="number" id="gamma_as" value=0.071 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Rate of losing immunity against the disease (ω)</td>
+                            <td class="py-0"><input type="number" id="omega" value=0.006 /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-0">Maximum time to plot</td>
+                            <td class="py-0"><input type="number" id="max_time" value=500 /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="section middle-section" rowspan="2">
+                    <div class="title">
+                        Input values
+                    </div>
+                    <div>
+                        <label for="varying_parameter">Choose varying parameter and enter three values</label>
+                        <select id="varying_parameter"  class="stack dropdown-parameter" onclick="updateInput(12)">
+                            <option selected value="no_variation">No variation</option>
+                            <option value="attractor_plot">Attractor plot</option>
+                            <option value="transmission_rate">Transmission rate (β)</option>
+                            <option value="birth_rate">Birth rate (μ)</option>
+                            <option value="death_rate">Death rate (λ)</option>
+                            <option value="vaccinated">Proportion of vaccinated population (V)</option>
+                            <option value="not_vaccinated">Proportion of non vaccinated population (NV)</option>
+                            <option value="sigma_sv">Rate of movement from Exposed with vaccinated to Infected with symptomatic (σsv)</option>
+                            <option value="sigma_av">Rate of movement from Exposed with vaccinated to Infected with asymptomatic (σav)</option>
+                            <option value="sigma_snv">Rate of movement from Exposed with non vaccinated to Infected with symptomatic (σsnv)</option>
+                            <option value="sigma_anv">Rate of movement from Exposed with non vaccinated to Infected with asymptomatic (σanv)</option>
+                            <option value="alpha_s">Death rate from Infected with symptomatic compartment (αs)</option>
+                            <option value="alpha_as">Death rate from Infected with asymptomatic compartment (αas)</option>
+                            <option value="gamma_s">Recovery rate from Infected with symptomatic compartment (γs)</option>
+                            <option value="gamma_as">Recovery rate from Infected with asymptomatic compartment (γas)</option>
+                            <option value="omega">Rate of losing immunity against the disease (ω)</option>
+                        </select>
+                        <div id="options-input" class="options-input hide">
+                            <label id="option1-message" class="text-red hide"></label>
+                            <div class="stack">
+                                <input type="number" class="parameter-values varying input-border border-brown" id="option1" value="0.2" step="0.01" oninput="validateParameter()">
+                            </div>
+                            <label id="option2-message" class="text-red hide"></label>
+                            <div class="stack">
+                                <input type="number" class="parameter-values varying input-border border-violet" id="option2" value="0.3" step="0.01" oninput="validateParameter()">
+                            </div>
+                            <label id="option3-message" class="text-red hide"></label>
+                            <div class="stack">
+                                <input type="number" class="parameter-values varying input-border border-cyan" id="option3" value="0.4" step="0.01" oninput="validateParameter()">
+                            </div>
+                        </div>
+
+                        <label for="initial-input" class="mt-3">Enter the inital values for each class</label>
+                        <div id="initial-input" class="initial-input">
+                            <label id="total-message" class="text-red hide">All class values should add to 1</label>
+                            <label id="susceptible-message" class="text-red hide">Susceptible value should be between 0 and 1</label>
+                            <table class="my-2">
+                                <tr>
+                                    <td class="class-name">Susceptible</td>
+                                    <td>
+                                        <input type="number" id="susceptible" class="class-values input-border border-red" value="0.7" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-1" class="class-values hide" value="0.5" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-2" class="class-values hide" value="0.6" step="0.01" oninput="validate()">
+                                    </td>
+                                </tr>
+                            </table>
+                            <label id="exposed-vaccinated-message" class="text-red hide">Exposed with vaccinated value should be between 0 and 1</label>
+                            <table class="my-2">
+                                <tr>
+                                    <td class="class-name">Exposed with vaccinated</td>
+                                    <td>
+                                        <input type="number" id="exposed-vaccinated" class="class-values input-border border-green" value="0.2" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-3" class="class-values hide" value="0.3" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-4" class="class-values hide" value="0.2" step="0.01" oninput="validate()">
+                                    </td>
+                                </tr>
+                            </table>
+                            <label id="exposed-not-vaccinated-message" class="text-red hide">Exposed with non vaccinated value should be between 0 and 1</label>
+                            <table class="my-2">
+                                <tr>
+                                    <td class="class-name">Exposed with non vaccinated</td>
+                                    <td>
+                                        <input type="number" id="exposed-not-vaccinated" class="class-values input-border border-blue" value="0.07" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-5" class="class-values hide" value="0.1" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-6" class="class-values hide" value="0.15" step="0.01" oninput="validate()">
+                                    </td>
+                                </tr>
+                            </table>
+                            <label id="infected-symptomatic-message" class="text-red hide">Infected with symptomatic value should be between 0 and 1</label>
+                            <table class="my-2">
+                                <tr>
+                                    <td class="class-name">Infected with symptomatic</td>
+                                    <td>
+                                        <input type="number" id="infected-symptomatic" class="class-values input-border border-black" value="0.02" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-7" class="class-values hide" value="0.07" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-8" class="class-values hide" value="0.03" step="0.01" oninput="validate()">
+                                    </td>
+                                </tr>
+                            </table>
+                            <label id="infected-asymptomatic-message" class="text-red hide">Infected with asymptomatic value should be between 0 and 1</label>
+                            <table class="my-2">
+                                <tr>
+                                    <td class="class-name">Infected with asymptomatic</td>
+                                    <td>
+                                        <input type="number" id="infected-asymptomatic" class="class-values  input-border border-orange" value="0.01" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-9" class="class-values hide" value="0.03" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-10" class="class-values hide" value="0.02" step="0.01" oninput="validate()">
+                                    </td>
+                                </tr>
+                            </table>
+                            <label id="recovered-message" class="text-red hide">Recovered value should be between 0 and 1</label>
+                            <table class="my-2">
+                                <tr>
+                                    <td class="class-name">Recovered</td>
+                                    <td>
+                                        <input type="number" id="recovered" class="class-values  input-border border-orange" value="0.0" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-11" class="class-values hide" value="0.0" step="0.01" oninput="validate()">
+                                        <input type="number" id="add-input-12" class="class-values hide" value="0.0" step="0.01" oninput="validate()">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </td>
+                <td class="section right-section graph-section">
+                    <div id="graph-top" class="graph-top hide">
+                    </div>
+                    <div id="graph-bottom" class="graph-bottom hide">
+                        <div id="chart-carousel-2" class="carousel slide" data-interval="false">
+
+                            <!-- Wrapper for slides -->
+                            <div id="graph-outer-bottom" class="carousel-inner graph-outer">
+                              <div class="carousel-item graph-item active">
+                                <canvas id="graph-bottom-1" class="graph-item chart"></canvas>
+                              </div>
+                              <div class="carousel-item graph-item">
+                                <canvas id="graph-bottom-2" class="graph-item chart"></canvas>
+                              </div>
+                              <div class="carousel-item graph-item">
+                               <canvas id="graph-bottom-3" class="graph-item chart"></canvas>
+                              </div>
+                            </div>
+
+                           <!-- Left and right controls -->
+                            <a class="carousel-control-prev" href="#chart-carousel-2" data-slide="prev">
+                              <span class="carousel-control-prev-icon bg-dark"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#chart-carousel-2" data-slide="next">
+                              <span class="carousel-control-next-icon bg-dark"></span>
+                            </a>
+                          </div> <!-- Carousel -->
+                    </div>
+                </td>
+            </tr>
+            <tr>
+              <td class="section right-section">
+                <!-- <hr> -->
+                <label id="generate-graph" class=""></label>
+                <button id="generate-button" class="btn btn-primary" onclick="generateGraph()">Generate graph</button>
+                <div id="comment-section" class="comment hide">
+                    <label class="title">Comment</label>
+                    <p id="comment"></p>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <table class="footer">
+            <tr class="footero-row">
+                <td class="align-center left-footer">
+                    <img width="140" height="140" src="clarkson.png"></img>
+                </td>
+                <td class="middle-left-footer">
+                    <table id="team" class="team">
+                        <tr><td class="font-weight-bold team-names">Team Members</td></tr>
+                        <tr><td class="team-names">Lavanya Shri Seplanatham Anjapuli</td></tr>
+                        <tr><td class="team-names">Bhavvikumar Patel</td></tr>
+                        <tr><td class="team-names">Dr. Mahesh Banavar</td></tr>
+                        <tr><td class="team-names">Dr. Andreas Spanias</td></tr>
+                        <tr><td class="team-names">Dr. Cihan Tepedelenlioglu</td></tr>
+                        <tr><td class="team-names">Dr. Stephanie A. Schucker</td></tr>
+                    </table>
+                </td>
+                <td class="middle-right-footer">
+                    <div class="py-2"><a class="btn-sm btn-secondary" href="https://sites.google.com/clarkson.edu/cu-cosine-lab/home/rapid-project-on-covid-19-hotspot-detection" target="_blank" rel="noreferrer noopener">Project Information 1</a></div>
+                    <div class="py-2"><a class="btn-sm btn-secondary" href="https://sensip.engineering.asu.edu/rapid-project/" target="_blank" rel="noreferrer noopener">Project Information 2</a></div>
+                </td>
+
+
+                <td class="align-center right-footer">
+                    <img width="140" height="140" src="asu.png"></img>
+                </td>
+            </tr>
+          </table>
+    </div>
+
+</body>
+
+
+</body>
+
+</html>
