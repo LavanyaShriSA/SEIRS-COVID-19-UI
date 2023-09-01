@@ -33,71 +33,86 @@
             <tr>
                 <td colspan="3" class="align-center h3 py-1">Mathematical Modelling of Covid-19 using modified SEIRS Model</td>
             </tr>
-            <tr>
+            <tr id="primary-page">
                 <td  class="section left-section" rowspan="2">
                     <div class="title">
                         Default parameters
                     </div>
-                    <table class="table">
-                        <tr>
-                            <td class="py-0">Transmission rate (β)</td>
-                            <td class="py-0"><input type="number" id="transmission_rate" value=0.5 /></td>
+                    <table class="table-condensed">
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Transmission rate (β)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="transmission_rate" value=0.5 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(1)" onmouseleave="hideInfo(1)">&#8505;</span><span id="info-1" class="info-message hide-info">Transmission rate is the probability of transmitting disease between a susceptible and an infectious individual</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Birth rate (μ)</td>
-                            <td class="py-0"><input type="number" id="birth_rate" value=0.001 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Birth rate (μ)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="birth_rate" value=0.001 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(2)" onmouseleave="hideInfo(2)">&#8505;</span><span id="info-2" class="info-message hide-info">Ratio of number of births in one year to the total population</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Death rate (λ)</td>
-                            <td class="py-0"><input type="number" id="death_rate" value=0.0005 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Death rate (λ)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="death_rate" value=0.0005 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(3)" onmouseleave="hideInfo(3)">&#8505;</span><span id="info-3" class="info-message hide-info">Ratio of number of deaths in one year to the total population</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Proportion of vaccinated population (V)</td>
-                            <td class="py-0"><input type="number" id="vaccinated" value=0.6 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Proportion of vaccinated population (V)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="vaccinated" value=0.6 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(4)" onmouseleave="hideInfo(4)">&#8505;</span><span id="info-4" class="info-message hide-info">Ratio of the vaccinated population to the total population.</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Proportion of non vaccinated population (NV)</td>
-                            <td class="py-0"><input type="number" id="not_vaccinated" value=0.4 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Proportion of non vaccinated population (NV)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="not_vaccinated" value=0.4 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(5)" onmouseleave="hideInfo(5)">&#8505;</span><span id="info-5" class="info-message hide-info">Ratio of the non-vaccinated population to the total population.</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Rate of movement from Exposed with vaccinated to Infected with symptomatic (σsv)</td>
-                            <td class="py-0"><input type="number" id="sigma_sv" value=0.014 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Rate of movement from Exposed with vaccinated to Infected with symptomatic (σ<sub>SV</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="sigma_sv" value=0.014 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(6)" onmouseleave="hideInfo(6)">&#8505;</span><span id="info-6" class="info-message hide-info">Ratio of number of individuals moved from E<sub>V</sub> to I<sub>S</sub> per day to the population of E<sub>V</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Rate of movement from Exposed with vaccinated to Infected with asymptomatic (σav)</td>
-                            <td class="py-0"><input type="number" id="sigma_av" value=0.128 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Rate of movement from Exposed with vaccinated to Infected with asymptomatic (σ<sub>AV</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="sigma_av" value=0.128 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(7)" onmouseleave="hideInfo(7)">&#8505;</span><span id="info-7" class="info-message hide-info">Ratio of number of individuals moved from E<sub>V</sub> to I<sub>AS</sub> per day to the population of E<sub>V</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Rate of movement from Exposed with non vaccinated to Infected with symptomatic (σsnv)</td>
-                            <td class="py-0"><input type="number" id="sigma_snv" value=0.128 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Rate of movement from Exposed with non vaccinated to Infected with symptomatic (σ<sub>SNV</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="sigma_snv" value=0.128 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(8)" onmouseleave="hideInfo(8)">&#8505;</span><span id="info-8" class="info-message hide-info">Ratio of number of individuals moved from E<sub>NV</sub> to I<sub>S</sub> per day to the population of E<sub>NV</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Rate of movement from Exposed with non vaccinated to Infected with asymptomatic (σanv)</td>
-                            <td class="py-0"><input type="number" id="sigma_anv" value=0.014 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Rate of movement from Exposed with non vaccinated to Infected with asymptomatic (σ<sub>ANV</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="sigma_anv" value=0.014 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(9)" onmouseleave="hideInfo(9)">&#8505;</span><span id="info-9" class="info-message hide-info">Ratio of number of individuals moved from E<sub>NV</sub> to I<sub>AS</sub> per day to the population of E<sub>NV</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Death rate from Infected with symptomatic compartment (αs)</td>
-                            <td class="py-0"><input type="number" id="alpha_s" value=0.01 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Death rate from Infected with symptomatic compartment (α<sub>S</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="alpha_s" value=0.01 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(10)" onmouseleave="hideInfo(10)">&#8505;</span><span id="info-10" class="info-message hide-info">Ratio of number of deaths from I<sub>S</sub> per day to the population of I<sub>S</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Death rate from Infected with asymptomatic compartment (αas)</td>
-                            <td class="py-0"><input type="number" id="alpha_as" value=0.0 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Death rate from Infected with asymptomatic compartment (α<sub>AS</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="alpha_as" value=0.0 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(11)" onmouseleave="hideInfo(11)">&#8505;</span><span id="info-11" class="info-message hide-info">Ratio of number of deaths from I<sub>AS</sub> per day to the population of I<sub>AS</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Recovery rate from Infected with symptomatic compartment (γs)</td>
-                            <td class="py-0"><input type="number" id="gamma_s" value=0.071 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Recovery rate from Infected with symptomatic compartment (γ<sub>S</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="gamma_s" value=0.071 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(12)" onmouseleave="hideInfo(12)">&#8505;</span><span id="info-12" class="info-message hide-info">Ratio of number of individuals recovered from I<sub>S</sub> per day to the population of I<sub>S</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Recovery rate from Infected with asymptomatic compartment (γas)</td>
-                            <td class="py-0"><input type="number" id="gamma_as" value=0.071 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Recovery rate from Infected with asymptomatic compartment (γ<sub>AS</sub>)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="gamma_as" value=0.071 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(13)" onmouseleave="hideInfo(13)">&#8505;</span><span id="info-13" class="info-message hide-info">Ratio of number of individuals recovered from I<sub>AS</sub> per day to the population of I<sub>AS</sub></span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Rate of losing immunity against the disease (ω)</td>
-                            <td class="py-0"><input type="number" id="omega" value=0.006 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Rate of losing immunity against the disease (ω)</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="omega" value=0.006 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(14)" onmouseleave="hideInfo(14)">&#8505;</span><span id="info-14" class="info-message hide-info">Ratio of number of individuals in R losing immunity per day to the population of R</span></td>
                         </tr>
-                        <tr>
-                            <td class="py-0">Maximum time to plot</td>
-                            <td class="py-0"><input type="number" id="max_time" value=500 /></td>
+                        <tr class="parameter-row">
+                            <td class="py-0 parameter-name">Total time steps (days) to display</td>
+                            <td class="py-0"><input type="number" class="parameter-value" maxlength="5" id="max_time" value=500 /></td>
+                            <td class="py-0"><span class="i-button" onmouseenter="displayInfo(15)" onmouseleave="hideInfo(15)">&#8505;</span><span id="info-15" class="info-message hide-info">Total number of time  (days) to display the graphs</span></td>
                         </tr>
                     </table>
                 </td>
@@ -146,7 +161,7 @@
                             <label id="susceptible-message" class="text-red hide">Susceptible value should be between 0 and 1</label>
                             <table class="my-2">
                                 <tr>
-                                    <td class="class-name">Susceptible</td>
+                                    <td class="class-name">Susceptible (S)</td>
                                     <td>
                                         <input type="number" id="susceptible" class="class-values input-border border-red" value="0.7" step="0.01" oninput="validate()">
                                         <input type="number" id="add-input-1" class="class-values hide" value="0.5" step="0.01" oninput="validate()">
@@ -157,7 +172,7 @@
                             <label id="exposed-vaccinated-message" class="text-red hide">Exposed with vaccinated value should be between 0 and 1</label>
                             <table class="my-2">
                                 <tr>
-                                    <td class="class-name">Exposed with vaccinated</td>
+                                    <td class="class-name">Exposed with vaccinated (E<sub>V</sub>)</td>
                                     <td>
                                         <input type="number" id="exposed-vaccinated" class="class-values input-border border-green" value="0.2" step="0.01" oninput="validate()">
                                         <input type="number" id="add-input-3" class="class-values hide" value="0.3" step="0.01" oninput="validate()">
@@ -168,7 +183,7 @@
                             <label id="exposed-not-vaccinated-message" class="text-red hide">Exposed with non vaccinated value should be between 0 and 1</label>
                             <table class="my-2">
                                 <tr>
-                                    <td class="class-name">Exposed with non vaccinated</td>
+                                    <td class="class-name">Exposed with non vaccinated (E<sub>NV</sub>)</td>
                                     <td>
                                         <input type="number" id="exposed-not-vaccinated" class="class-values input-border border-blue" value="0.07" step="0.01" oninput="validate()">
                                         <input type="number" id="add-input-5" class="class-values hide" value="0.1" step="0.01" oninput="validate()">
@@ -179,7 +194,7 @@
                             <label id="infected-symptomatic-message" class="text-red hide">Infected with symptomatic value should be between 0 and 1</label>
                             <table class="my-2">
                                 <tr>
-                                    <td class="class-name">Infected with symptomatic</td>
+                                    <td class="class-name">Infected with symptomatic (I<sub>S</sub>)</td>
                                     <td>
                                         <input type="number" id="infected-symptomatic" class="class-values input-border border-black" value="0.02" step="0.01" oninput="validate()">
                                         <input type="number" id="add-input-7" class="class-values hide" value="0.07" step="0.01" oninput="validate()">
@@ -190,7 +205,7 @@
                             <label id="infected-asymptomatic-message" class="text-red hide">Infected with asymptomatic value should be between 0 and 1</label>
                             <table class="my-2">
                                 <tr>
-                                    <td class="class-name">Infected with asymptomatic</td>
+                                    <td class="class-name">Infected with asymptomatic (I<sub>AS</sub>)</td>
                                     <td>
                                         <input type="number" id="infected-asymptomatic" class="class-values  input-border border-orange" value="0.01" step="0.01" oninput="validate()">
                                         <input type="number" id="add-input-9" class="class-values hide" value="0.03" step="0.01" oninput="validate()">
@@ -201,7 +216,7 @@
                             <label id="recovered-message" class="text-red hide">Recovered value should be between 0 and 1</label>
                             <table class="my-2">
                                 <tr>
-                                    <td class="class-name">Recovered</td>
+                                    <td class="class-name">Recovered (R)</td>
                                     <td>
                                         <input type="number" id="recovered" class="class-values  input-border border-orange" value="0.0" step="0.01" oninput="validate()">
                                         <input type="number" id="add-input-11" class="class-values hide" value="0.0" step="0.01" oninput="validate()">
@@ -244,7 +259,7 @@
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr id="primary-page-right-section">
               <td class="section right-section">
                 <!-- <hr> -->
                 <label id="generate-graph" class=""></label>
@@ -254,6 +269,43 @@
                     <p id="comment"></p>
                 </div>
               </td>
+            </tr>
+            <tr id="secondary-page" class="hide">
+                <td class="col-3">
+                    <hr class="hr-bold">
+                    <p class="align-center h4">SEIRS Compartmental model</p>
+                    <p>Mathematical representations of infectious diseases include compartment-based SEIR and SEIRS models. These models are represented using coupled differential equations that capture the flow of populations from one compartment to another. While these models have been used for several infectious diseases such as HIV/AIDS, tuberculosis, Dengue fever, and COVID-19, the models do not generally incorporate compartments for vaccinated populations, asymptomatic infections, and the possibility of reinfection.</p>
+                    <p>This modified Susceptible-Exposed-Infected-Recovered-Susceptible (SEIRS) compartment model for COVID-19 disease incorporates the compartments for exposed vaccinated and non-vaccinated populations, and those with symptomatic and asymptomatic infections. In this work, we present a modified SEIRS model that consists of six compartments:</p>
+                    <ol>
+                        <li>Susceptible</li>
+                        <li>Exposed to vaccination</li>
+                        <li>Exposed with non-vaccination</li>
+                        <li>Infected persons with symptoms</li>
+                        <li>Asymptomatic infected</li>
+                        <li>Recovered</li>
+                    </ol>
+                    <p class="align-center"><img width="750px" height="500px" src="seirs_diagram.png"></img></p>
+                    <p class="align-center">Transition diagram of modified six compartmental SEIRS model to predict the infections of disease spread.</p>
+                    <p>The modified SEIRS model can be represented using a set of coupled differential equations:</p>
+                    <p>𝑑𝑠/𝑑𝑡 = 𝜇𝑁+ 𝜔𝑅 − 𝜆𝑆 − ((𝑉𝛽𝐼<sub>S</sub> 𝑆)/𝑁) − (((𝑁𝑉)𝛽𝐼<sub>S</sub> 𝑆)/𝑁)</p>                        
+                    <p>(𝑑𝐸<sub>V</sub>)/𝑑𝑡 = ((𝑉𝛽𝐼<sub>S</sub>𝑆)/𝑁) − (𝜆 + 𝜎<sub>𝑆𝑉</sub> + 𝜎<sub>𝐴𝑉</sub>)𝐸<sub>V</sub></p>                        
+                    <p>(𝑑𝐸<sub>NV</sub>)/𝑑𝑡 = (((𝑁𝑉)𝛽𝐼<sub>S</sub>𝑆)/𝑁) − (𝜆 + 𝜎<sub>𝑆𝑁𝑉</sub> + 𝜎<sub>𝐴𝑁𝑉</sub>)𝐸<sub>NV</sub></p>                        
+                    <p>(𝑑𝐼<sub>S</sub>)/𝑑𝑡 = 𝜎<sub>SV</sub>𝐸<sub>V</sub> + 𝜎<sub>𝑆𝑁𝑉</sub> 𝐸<sub>𝑁𝑉</sub> − (𝜆 + 𝛼<sub>S</sub> + 𝛾<sub>𝑆</sub>)𝐼<sub>S</sub></p>                        
+                    <p>(𝑑𝐼<sub>AS</sub>)/𝑑𝑡 = 𝜎<sub>𝐴𝑉</sub>𝐸<sub>V</sub> + 𝜎<sub>𝐴𝑁𝑉</sub>𝐸<sub>𝑁𝑉</sub> − (𝜆 + 𝛼<sub>𝐴𝑆</sub> + 𝛾<sub>𝐴𝑆</sub>)𝐼<sub>𝐴𝑆</sub></p>                        
+                    <p>(𝑑𝑅)/𝑑𝑡 = 𝛾<sub>S</sub>𝐼<sub>S</sub> + 𝛾<sub>𝐴𝑆</sub>𝐼<sub>𝐴𝑆</sub> − (𝜆+𝜔)𝑅</p>
+                    <p>where <br>
+                        λ is the natural death rate<br>
+                        μ is the natural birth rate<br>
+                        β is the contact rate<br>
+                        V is the fraction of the population vaccinated against the infectious disease<br>
+                        NV is the fraction without the vaccine so that V + NV = 1<br>
+                        α<sub>S</sub> and α<sub>AS</sub> are the death rates due to the infectious disease for symptomatic and asymptomatic infections, respectively<br>
+                        γ<sub>S</sub> and γ<sub>AS</sub> are the recovery rates for the symptomatic and asymptomatic infections, respectively<br>
+                        σ<sub>SV</sub> , σ<sub>SNV</sub> , σ<sub>AV</sub> , σ<sub>ANV</sub> are the rates of transition from exposed to infected compartments<br>
+                        ω is the fraction of recovered persons who lose immunity and become susceptible to infection again</p>
+                    <div class="align-center"><button class="btn-primary" onclick="getPrimaryPage()">Go Back</button></div>
+                    <hr class="hr-bold">
+                </td>
             </tr>
           </table>
           <table class="footer">
@@ -273,6 +325,7 @@
                     </table>
                 </td>
                 <td class="middle-right-footer">
+                    <div class="py-2"><button class="btn-sm btn-secondary" id="secondary-page-button" onclick="getSecondaryPage()">About SEIRS model used</button></div>
                     <div class="py-2"><a class="btn-sm btn-secondary" href="https://sites.google.com/clarkson.edu/cu-cosine-lab/home/rapid-project-on-covid-19-hotspot-detection" target="_blank" rel="noreferrer noopener">Project Information 1</a></div>
                     <div class="py-2"><a class="btn-sm btn-secondary" href="https://sensip.engineering.asu.edu/rapid-project/" target="_blank" rel="noreferrer noopener">Project Information 2</a></div>
                 </td>
