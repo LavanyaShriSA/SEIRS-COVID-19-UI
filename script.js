@@ -297,3 +297,29 @@ function displayTeam() {
         teamMembers = false;
     }
 }
+
+function displayInfo(num) {
+    document.getElementById("info-" + num).classList.remove("hide-info");
+}
+
+function hideInfo(num) {
+    document.getElementById("info-" + num).classList.add("hide-info");
+}
+
+function getSecondaryPage() {
+    document.getElementById("primary-page").classList.add("hide");
+    document.getElementById("primary-page-right-section").classList.add("hide");
+    document.getElementById("secondary-page").classList.remove("hide");
+    window.scrollTo(0, 0); //Scroll to top of the page
+}
+
+function getPrimaryPage() {
+    document.getElementById("secondary-page").classList.add("hide");
+    document.getElementById("primary-page").classList.remove("hide");
+    document.getElementById("primary-page-right-section").classList.remove("hide");
+    window.scrollTo(0, 0); //Scroll to top of the page
+}
+
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+}
